@@ -1,2 +1,2 @@
 # OpenSportSim Engine
-Game engine for sports simulation games.
+Core engine for sports simulation/visualization.
