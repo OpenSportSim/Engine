@@ -2,17 +2,17 @@
 #define VULKAN_HPP_NO_CONSTRUCTORS
 #include<vulkan/vulkan.hpp>
 #include<string>
+#include<memory>
 #include<cstdint>
 #include<vector>
-#include<memory>
 
 namespace OpenSportSim {
+namespace Backend {
+namespace Vulkan {
 struct AppInfo {
 	std::string Name;
 	uint32_t Version;
 };
-namespace Backend {
-namespace Vulkan {
 class CommandFactory {
 	vk::CommandPool pool;
 	std::vector<vk::CommandBuffer> buffers;
@@ -25,9 +25,9 @@ public:
 	vk::CommandBuffer& operator[](const size_t);
 };
 class Context {
+	std::unique_ptr<CommandFactory> commandFactory;
 	vk::Instance instance;
 	vk::Device device;
-	std::unique_ptr<CommandFactory> commandFactory;
 	void createDevice();
 public:
 	Context(const AppInfo&);

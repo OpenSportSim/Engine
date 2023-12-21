@@ -9,7 +9,7 @@ inline vk::PhysicalDevice pickPhysicalDevice(vk::Instance& instance) {
 	return best.value();
 }
 
-OpenSportSim::Backend::Vulkan::Context::Context(const OpenSportSim::AppInfo& info) {
+OpenSportSim::Backend::Vulkan::Context::Context(const OpenSportSim::Backend::Vulkan::AppInfo& info) {
 	vk::ApplicationInfo appInfo{
 		.pApplicationName = info.Name.c_str(),
 		.applicationVersion = info.Version,
