@@ -55,3 +55,13 @@ void OpenSportSim::GraphicsRenderer::reserve(size_t extension) {
     else this->buffers = (OpenSportSim::GraphicsBuffer**)realloc((void*)this->buffers, sizeOf * newSize);
     this->size = newSize;
 }
+
+OpenSportSim::OpenGL::GLFWHandle::GLFWHandle(const char *str) : OpenSportSim::GLFWHandle(str) {
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_API);
+    glfwWindowHint(GLFW_CONTEXT_CREATION_API, GLFW_NATIVE_CONTEXT_API);
+    this->createWindow();
+    glfwMakeContextCurrent((GLFWwindow*)this->window);
+}

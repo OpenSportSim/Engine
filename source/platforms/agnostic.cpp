@@ -1,5 +1,4 @@
 #include <exception>
-#include <iostream>
 #include <vulkan/vulkan.h>
 #include <GLFW/glfw3.h>
 #include <OpenSportSim/window.hpp>
@@ -21,30 +20,35 @@ OpenSportSim::GLFWHandle::GLFWHandle(const char *str) {
 
 OpenSportSim::GLFWHandle::~GLFWHandle() {
     glfwDestroyWindow((GLFWwindow*)this->window);
-    this->terminate();
+    glfwTerminate();
 }
 
 void *OpenSportSim::GLFWHandle::raw() const noexcept {
     return (void*)this->window;
 }
 
-void OpenSportSim::GLFWHandle::createWindow() noexcept {
-    this->window = (void*)glfwCreateWindow(600, 600, "Client", NULL, NULL);
+void OpenSportSim::GLFWHandle::createWindow() {
+    auto window = glfwCreateWindow(600, 600, "Client", NULL, NULL);
+    if (window == NULL) {
+        throw std::exception();
+    }
+    glfwShowWindow(window);
+    this->window = (void*)window;
 }
 
-void OpenSportSim::GLFWHandle::terminate() noexcept {
-    glfwTerminate();
+bool OpenSportSim::GLFWHandle::isOpen() const noexcept {
+    return this->window != nullptr;
 }
 
-bool OpenSportSim::GLFWHandle::init() noexcept {
-    return glfwInit() == GLFW_TRUE;
+OpenSportSim::GLFWHandle *OpenSportSim::AgnosticWindow::getHandle() const noexcept {
+    return this->handle;
 }
 
 OpenSportSim::AgnosticWindow::AgnosticWindow(const char *str) {
     using GLFWHandleGL = OpenSportSim::OpenGL::GLFWHandle;
     using GLFWHandleVK = OpenSportSim::Vulkan::GLFWHandle;
     using GLFWHandle = OpenSportSim::GLFWHandle;
-    if (!GLFWHandle::init()) {
+    if (glfwInit() == GLFW_FALSE) {
         throw std::exception();
     }
     /* if (glfwVulkanSupported()) {

@@ -21,10 +21,9 @@ namespace OpenSportSim {
         GLFWHandle(const char *);
         virtual ~GLFWHandle();
         void *raw() const noexcept;
-        static void terminate() noexcept;
-        static bool init() noexcept;
+        bool isOpen() const noexcept;
     protected:
-        void createWindow() noexcept;
+        void createWindow();
         void *window = nullptr;
     };
 
@@ -39,6 +38,7 @@ namespace OpenSportSim {
         void poll() noexcept;
         void swap() noexcept;
         bool shouldClose() const noexcept;
+        GLFWHandle *getHandle() const noexcept;
     private:
         GraphicsRenderer *renderer = nullptr;
         GLFWHandle *handle = nullptr;

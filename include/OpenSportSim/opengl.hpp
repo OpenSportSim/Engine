@@ -1,6 +1,5 @@
 #ifndef __OPENSPORTSIM_OPENGL
 #define __OPENSPORTSIM_OPENGL
-#include "graphics.hpp"
 #include <OpenSportSim/window.hpp>
 #include <OpenSportSim/graphics.hpp>
 #include <cstddef>
