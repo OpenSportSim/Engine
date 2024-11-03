@@ -1,0 +1,3 @@
+# OpenSportSim
+
+Democratising eSports competition
